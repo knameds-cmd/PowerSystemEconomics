@@ -1,0 +1,9 @@
+# OS / editor noise
+Thumbs.db
+.DS_Store
+~$*.docx
+~$*.xlsx
+
+# Julia caches
+*.ji
+
