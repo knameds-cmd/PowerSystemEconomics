@@ -1,6 +1,7 @@
 # Download Scripts
 
 `download_raw_data.ps1` downloads raw API responses into `data/raw/`.
+`fetch_data_go_to_csv.py` tries the `data.go.kr` KPX endpoints with Python and writes CSV files when rows are returned.
 
 ## Quick start
 
@@ -38,4 +39,11 @@ Preview what the script would do without calling any APIs:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\download_raw_data.ps1 -DryRun
+```
+
+Try the `data.go.kr` APIs with Python and save trial CSV outputs:
+
+```powershell
+$env:DATA_GO_KR_SERVICE_KEY='your_key'
+& 'C:\Users\kname\AppData\Local\Programs\Python\Launcher\py.exe' .\scripts\fetch_data_go_to_csv.py
 ```

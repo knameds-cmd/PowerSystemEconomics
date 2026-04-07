@@ -18,6 +18,8 @@
 
 An external download attempt against the approved `data.go.kr` KPX endpoints returned HTTP `401 Unauthorized` for multiple services on `2026-04-07`.
 
+The same result was reproduced with a Python ingestion path that attempted to convert the responses into pandas DataFrames and CSV files under `data/processed/python_trials/`.
+
 ### What this likely means
 
 - the currently used key is not the exact working key for these endpoints, or
