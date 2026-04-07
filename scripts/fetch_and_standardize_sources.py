@@ -43,8 +43,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--page-size",
         type=int,
-        default=1000,
+        default=10000,
         help="Rows per request for data.go.kr sources",
+    )
+    parser.add_argument(
+        "--source",
+        default="all",
+        help="Comma-separated source keys to fetch. Use 'all' for every configured data.go.kr source.",
     )
     parser.add_argument(
         "--skip-data-go",
@@ -299,9 +304,13 @@ def write_csv(df: pd.DataFrame, path: Path) -> None:
 def main() -> int:
     args = parse_args()
     root = repo_root()
+    selected_sources = list(DATA_GO_SOURCES.keys()) if args.source == "all" else [part.strip() for part in args.source.split(",") if part.strip()]
 
     if not args.skip_data_go:
-        for source_key, config in DATA_GO_SOURCES.items():
+        for source_key in selected_sources:
+            if source_key not in DATA_GO_SOURCES:
+                raise RuntimeError(f"Unknown source key: {source_key}")
+            config = DATA_GO_SOURCES[source_key]
             snapshot_dir = fetch_data_go_source(
                 source_key=source_key,
                 config=config,

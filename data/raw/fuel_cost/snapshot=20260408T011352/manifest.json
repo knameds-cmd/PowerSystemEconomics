@@ -1,0 +1,11 @@
+{
+  "source": "fuel_cost",
+  "base_url": "https://apis.data.go.kr/B552115/FuelCost1/getFuelCost1",
+  "downloaded_at": "20260408T011352",
+  "page_size": 10000,
+  "page_count": 1,
+  "total_count": 270,
+  "pages": [
+    "page-0001.json"
+  ]
+}

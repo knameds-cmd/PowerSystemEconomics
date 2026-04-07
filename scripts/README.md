@@ -55,3 +55,12 @@ Fetch approved sources and build standardized CSV files:
 $env:DATA_GO_KR_SERVICE_KEY='your_key'
 & 'C:\Users\kname\AppData\Local\Programs\Python\Launcher\py.exe' .\scripts\fetch_and_standardize_sources.py
 ```
+
+Fetch only selected approved sources with a larger page size:
+
+```powershell
+$env:DATA_GO_KR_SERVICE_KEY='your_key'
+& 'C:\Users\kname\AppData\Local\Programs\Python\Launcher\py.exe' .\scripts\fetch_and_standardize_sources.py `
+  --source power_market_gen_info,fuel_cost `
+  --page-size 10000
+```

@@ -1,0 +1,2176 @@
+{
+  "header": {
+    "resultCode": "00",
+    "resultMsg": "OK"
+  },
+  "body": {
+    "dataType": "JSON",
+    "totalCount": "270",
+    "numOfRows": "10000",
+    "pageNo": "1",
+    "items": {
+      "item": [
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53104.54,
+          "rn": 1,
+          "untpcType": "열량단가",
+          "day": "202604"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 2,
+          "untpcType": "열량단가",
+          "day": "202604"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 3,
+          "untpcType": "열량단가",
+          "day": "202604"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 4,
+          "untpcType": "열량단가",
+          "day": "202604"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 5,
+          "untpcType": "열량단가",
+          "day": "202604"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53104.54,
+          "rn": 6,
+          "untpcType": "열량단가",
+          "day": "202603"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 7,
+          "untpcType": "열량단가",
+          "day": "202603"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 8,
+          "untpcType": "열량단가",
+          "day": "202603"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 9,
+          "untpcType": "열량단가",
+          "day": "202603"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 10,
+          "untpcType": "열량단가",
+          "day": "202603"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53104.54,
+          "rn": 11,
+          "untpcType": "열량단가",
+          "day": "202602"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 12,
+          "untpcType": "열량단가",
+          "day": "202602"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 13,
+          "untpcType": "열량단가",
+          "day": "202602"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 14,
+          "untpcType": "열량단가",
+          "day": "202602"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 15,
+          "untpcType": "열량단가",
+          "day": "202602"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53104.54,
+          "rn": 16,
+          "untpcType": "열량단가",
+          "day": "202601"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 17,
+          "untpcType": "열량단가",
+          "day": "202601"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 18,
+          "untpcType": "열량단가",
+          "day": "202601"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 19,
+          "untpcType": "열량단가",
+          "day": "202601"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 20,
+          "untpcType": "열량단가",
+          "day": "202601"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 21,
+          "untpcType": "열량단가",
+          "day": "202512"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 22,
+          "untpcType": "열량단가",
+          "day": "202512"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 23,
+          "untpcType": "열량단가",
+          "day": "202512"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 24,
+          "untpcType": "열량단가",
+          "day": "202512"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 25,
+          "untpcType": "열량단가",
+          "day": "202512"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 26,
+          "untpcType": "열량단가",
+          "day": "202511"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 27,
+          "untpcType": "열량단가",
+          "day": "202511"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 28,
+          "untpcType": "열량단가",
+          "day": "202511"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 29,
+          "untpcType": "열량단가",
+          "day": "202511"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 30,
+          "untpcType": "열량단가",
+          "day": "202511"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 31,
+          "untpcType": "열량단가",
+          "day": "202510"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 32,
+          "untpcType": "열량단가",
+          "day": "202510"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 33,
+          "untpcType": "열량단가",
+          "day": "202510"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 34,
+          "untpcType": "열량단가",
+          "day": "202510"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 35,
+          "untpcType": "열량단가",
+          "day": "202510"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 36,
+          "untpcType": "열량단가",
+          "day": "202509"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 37,
+          "untpcType": "열량단가",
+          "day": "202509"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 38,
+          "untpcType": "열량단가",
+          "day": "202509"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 39,
+          "untpcType": "열량단가",
+          "day": "202509"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 40,
+          "untpcType": "열량단가",
+          "day": "202509"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 41,
+          "untpcType": "열량단가",
+          "day": "202508"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 42,
+          "untpcType": "열량단가",
+          "day": "202508"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 43,
+          "untpcType": "열량단가",
+          "day": "202508"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 44,
+          "untpcType": "열량단가",
+          "day": "202508"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 45,
+          "untpcType": "열량단가",
+          "day": "202508"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 46,
+          "untpcType": "열량단가",
+          "day": "202507"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 47,
+          "untpcType": "열량단가",
+          "day": "202507"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 48,
+          "untpcType": "열량단가",
+          "day": "202507"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 49,
+          "untpcType": "열량단가",
+          "day": "202507"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 50,
+          "untpcType": "열량단가",
+          "day": "202507"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 51,
+          "untpcType": "열량단가",
+          "day": "202506"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 52,
+          "untpcType": "열량단가",
+          "day": "202506"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 53,
+          "untpcType": "열량단가",
+          "day": "202506"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 54,
+          "untpcType": "열량단가",
+          "day": "202506"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 55,
+          "untpcType": "열량단가",
+          "day": "202506"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 56,
+          "untpcType": "열량단가",
+          "day": "202505"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 57,
+          "untpcType": "열량단가",
+          "day": "202505"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 58,
+          "untpcType": "열량단가",
+          "day": "202505"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 59,
+          "untpcType": "열량단가",
+          "day": "202505"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 60,
+          "untpcType": "열량단가",
+          "day": "202505"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 61,
+          "untpcType": "열량단가",
+          "day": "202504"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 62,
+          "untpcType": "열량단가",
+          "day": "202504"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 63,
+          "untpcType": "열량단가",
+          "day": "202504"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 64,
+          "untpcType": "열량단가",
+          "day": "202504"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 65,
+          "untpcType": "열량단가",
+          "day": "202504"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 66,
+          "untpcType": "열량단가",
+          "day": "202503"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 67,
+          "untpcType": "열량단가",
+          "day": "202503"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 68,
+          "untpcType": "열량단가",
+          "day": "202503"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 69,
+          "untpcType": "열량단가",
+          "day": "202503"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 70,
+          "untpcType": "열량단가",
+          "day": "202503"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 71,
+          "untpcType": "열량단가",
+          "day": "202502"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 72,
+          "untpcType": "열량단가",
+          "day": "202502"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 73,
+          "untpcType": "열량단가",
+          "day": "202502"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 74,
+          "untpcType": "열량단가",
+          "day": "202502"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 75,
+          "untpcType": "열량단가",
+          "day": "202502"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 76,
+          "untpcType": "열량단가",
+          "day": "202501"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 77,
+          "untpcType": "열량단가",
+          "day": "202501"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 78,
+          "untpcType": "열량단가",
+          "day": "202501"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 79,
+          "untpcType": "열량단가",
+          "day": "202501"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112232.02,
+          "rn": 80,
+          "untpcType": "열량단가",
+          "day": "202501"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 81,
+          "untpcType": "열량단가",
+          "day": "202412"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 82,
+          "untpcType": "열량단가",
+          "day": "202412"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 83,
+          "untpcType": "열량단가",
+          "day": "202412"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 84,
+          "untpcType": "열량단가",
+          "day": "202412"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 85,
+          "untpcType": "열량단가",
+          "day": "202412"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 86,
+          "untpcType": "열량단가",
+          "day": "202411"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 87,
+          "untpcType": "열량단가",
+          "day": "202411"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 88,
+          "untpcType": "열량단가",
+          "day": "202411"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 89,
+          "untpcType": "열량단가",
+          "day": "202411"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 90,
+          "untpcType": "열량단가",
+          "day": "202411"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53110.85,
+          "rn": 91,
+          "untpcType": "열량단가",
+          "day": "202410"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 92,
+          "untpcType": "열량단가",
+          "day": "202410"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 93,
+          "untpcType": "열량단가",
+          "day": "202410"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 94,
+          "untpcType": "열량단가",
+          "day": "202410"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 95,
+          "untpcType": "열량단가",
+          "day": "202410"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 96,
+          "untpcType": "열량단가",
+          "day": "202409"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 97,
+          "untpcType": "열량단가",
+          "day": "202409"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 98,
+          "untpcType": "열량단가",
+          "day": "202409"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 99,
+          "untpcType": "열량단가",
+          "day": "202409"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 100,
+          "untpcType": "열량단가",
+          "day": "202409"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 101,
+          "untpcType": "열량단가",
+          "day": "202408"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 102,
+          "untpcType": "열량단가",
+          "day": "202408"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 103,
+          "untpcType": "열량단가",
+          "day": "202408"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 104,
+          "untpcType": "열량단가",
+          "day": "202408"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 105,
+          "untpcType": "열량단가",
+          "day": "202408"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 106,
+          "untpcType": "열량단가",
+          "day": "202407"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 107,
+          "untpcType": "열량단가",
+          "day": "202407"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 108,
+          "untpcType": "열량단가",
+          "day": "202407"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 109,
+          "untpcType": "열량단가",
+          "day": "202407"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 110,
+          "untpcType": "열량단가",
+          "day": "202407"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 111,
+          "untpcType": "열량단가",
+          "day": "202406"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 112,
+          "untpcType": "열량단가",
+          "day": "202406"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 113,
+          "untpcType": "열량단가",
+          "day": "202406"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 114,
+          "untpcType": "열량단가",
+          "day": "202406"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 115,
+          "untpcType": "열량단가",
+          "day": "202406"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 116,
+          "untpcType": "열량단가",
+          "day": "202405"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 166079.96,
+          "rn": 117,
+          "untpcType": "열량단가",
+          "day": "202405"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 118,
+          "untpcType": "열량단가",
+          "day": "202405"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 119,
+          "untpcType": "열량단가",
+          "day": "202405"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.15,
+          "rn": 120,
+          "untpcType": "열량단가",
+          "day": "202405"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 121,
+          "untpcType": "열량단가",
+          "day": "202404"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163745.6,
+          "rn": 122,
+          "untpcType": "열량단가",
+          "day": "202404"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 123,
+          "untpcType": "열량단가",
+          "day": "202404"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 124,
+          "untpcType": "열량단가",
+          "day": "202404"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 125,
+          "untpcType": "열량단가",
+          "day": "202404"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 126,
+          "untpcType": "열량단가",
+          "day": "202403"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163745.6,
+          "rn": 127,
+          "untpcType": "열량단가",
+          "day": "202403"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 128,
+          "untpcType": "열량단가",
+          "day": "202403"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 129,
+          "untpcType": "열량단가",
+          "day": "202403"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 130,
+          "untpcType": "열량단가",
+          "day": "202403"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 131,
+          "untpcType": "열량단가",
+          "day": "202402"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163745.6,
+          "rn": 132,
+          "untpcType": "열량단가",
+          "day": "202402"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 133,
+          "untpcType": "열량단가",
+          "day": "202402"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 134,
+          "untpcType": "열량단가",
+          "day": "202402"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 135,
+          "untpcType": "열량단가",
+          "day": "202402"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 136,
+          "untpcType": "열량단가",
+          "day": "202401"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163745.6,
+          "rn": 137,
+          "untpcType": "열량단가",
+          "day": "202401"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 138,
+          "untpcType": "열량단가",
+          "day": "202401"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 139,
+          "untpcType": "열량단가",
+          "day": "202401"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 140,
+          "untpcType": "열량단가",
+          "day": "202401"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 141,
+          "untpcType": "열량단가",
+          "day": "202312"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 142,
+          "untpcType": "열량단가",
+          "day": "202312"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 143,
+          "untpcType": "열량단가",
+          "day": "202312"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 144,
+          "untpcType": "열량단가",
+          "day": "202312"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 145,
+          "untpcType": "열량단가",
+          "day": "202312"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 146,
+          "untpcType": "열량단가",
+          "day": "202311"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 147,
+          "untpcType": "열량단가",
+          "day": "202311"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 148,
+          "untpcType": "열량단가",
+          "day": "202311"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 149,
+          "untpcType": "열량단가",
+          "day": "202311"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 150,
+          "untpcType": "열량단가",
+          "day": "202311"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 151,
+          "untpcType": "열량단가",
+          "day": "202310"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 152,
+          "untpcType": "열량단가",
+          "day": "202310"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 153,
+          "untpcType": "열량단가",
+          "day": "202310"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 154,
+          "untpcType": "열량단가",
+          "day": "202310"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 155,
+          "untpcType": "열량단가",
+          "day": "202310"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 156,
+          "untpcType": "열량단가",
+          "day": "202309"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 157,
+          "untpcType": "열량단가",
+          "day": "202309"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 158,
+          "untpcType": "열량단가",
+          "day": "202309"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 159,
+          "untpcType": "열량단가",
+          "day": "202309"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 160,
+          "untpcType": "열량단가",
+          "day": "202309"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 161,
+          "untpcType": "열량단가",
+          "day": "202308"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 162,
+          "untpcType": "열량단가",
+          "day": "202308"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 163,
+          "untpcType": "열량단가",
+          "day": "202308"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 164,
+          "untpcType": "열량단가",
+          "day": "202308"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 165,
+          "untpcType": "열량단가",
+          "day": "202308"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 166,
+          "untpcType": "열량단가",
+          "day": "202307"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 167,
+          "untpcType": "열량단가",
+          "day": "202307"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 168,
+          "untpcType": "열량단가",
+          "day": "202307"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 169,
+          "untpcType": "열량단가",
+          "day": "202307"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 170,
+          "untpcType": "열량단가",
+          "day": "202307"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 171,
+          "untpcType": "열량단가",
+          "day": "202306"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 172,
+          "untpcType": "열량단가",
+          "day": "202306"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 173,
+          "untpcType": "열량단가",
+          "day": "202306"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 174,
+          "untpcType": "열량단가",
+          "day": "202306"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 175,
+          "untpcType": "열량단가",
+          "day": "202306"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 176,
+          "untpcType": "열량단가",
+          "day": "202305"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 177,
+          "untpcType": "열량단가",
+          "day": "202305"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 178,
+          "untpcType": "열량단가",
+          "day": "202305"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 179,
+          "untpcType": "열량단가",
+          "day": "202305"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 180,
+          "untpcType": "열량단가",
+          "day": "202305"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 181,
+          "untpcType": "열량단가",
+          "day": "202304"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 163579.25,
+          "rn": 182,
+          "untpcType": "열량단가",
+          "day": "202304"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 183,
+          "untpcType": "열량단가",
+          "day": "202304"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 184,
+          "untpcType": "열량단가",
+          "day": "202304"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 185,
+          "untpcType": "열량단가",
+          "day": "202304"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 186,
+          "untpcType": "열량단가",
+          "day": "202303"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160629.34,
+          "rn": 187,
+          "untpcType": "열량단가",
+          "day": "202303"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 188,
+          "untpcType": "열량단가",
+          "day": "202303"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 189,
+          "untpcType": "열량단가",
+          "day": "202303"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 190,
+          "untpcType": "열량단가",
+          "day": "202303"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 191,
+          "untpcType": "열량단가",
+          "day": "202302"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160629.34,
+          "rn": 192,
+          "untpcType": "열량단가",
+          "day": "202302"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 193,
+          "untpcType": "열량단가",
+          "day": "202302"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 194,
+          "untpcType": "열량단가",
+          "day": "202302"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 195,
+          "untpcType": "열량단가",
+          "day": "202302"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 196,
+          "untpcType": "열량단가",
+          "day": "202301"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160629.34,
+          "rn": 197,
+          "untpcType": "열량단가",
+          "day": "202301"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 198,
+          "untpcType": "열량단가",
+          "day": "202301"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 199,
+          "untpcType": "열량단가",
+          "day": "202301"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 200,
+          "untpcType": "열량단가",
+          "day": "202301"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.62,
+          "rn": 201,
+          "untpcType": "열량단가",
+          "day": "202212"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160629.34,
+          "rn": 202,
+          "untpcType": "열량단가",
+          "day": "202212"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2539.85,
+          "rn": 203,
+          "untpcType": "열량단가",
+          "day": "202212"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 204,
+          "untpcType": "열량단가",
+          "day": "202212"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.28,
+          "rn": 205,
+          "untpcType": "열량단가",
+          "day": "202212"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.621,
+          "rn": 206,
+          "untpcType": "열량단가",
+          "day": "202211"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160629.344,
+          "rn": 207,
+          "untpcType": "열량단가",
+          "day": "202211"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2543.92,
+          "rn": 208,
+          "untpcType": "열량단가",
+          "day": "202211"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 209,
+          "untpcType": "열량단가",
+          "day": "202211"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.281,
+          "rn": 210,
+          "untpcType": "열량단가",
+          "day": "202211"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 53009.621,
+          "rn": 211,
+          "untpcType": "열량단가",
+          "day": "202210"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160629.344,
+          "rn": 212,
+          "untpcType": "열량단가",
+          "day": "202210"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2556.73,
+          "rn": 213,
+          "untpcType": "열량단가",
+          "day": "202210"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45628.57,
+          "rn": 214,
+          "untpcType": "열량단가",
+          "day": "202210"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 112323.281,
+          "rn": 215,
+          "untpcType": "열량단가",
+          "day": "202210"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 52259.93,
+          "rn": 216,
+          "untpcType": "열량단가",
+          "day": "202209"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 158854.953,
+          "rn": 217,
+          "untpcType": "열량단가",
+          "day": "202209"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2556.71,
+          "rn": 218,
+          "untpcType": "열량단가",
+          "day": "202209"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 45297.75,
+          "rn": 219,
+          "untpcType": "열량단가",
+          "day": "202209"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 105351.977,
+          "rn": 220,
+          "untpcType": "열량단가",
+          "day": "202209"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 52296.539,
+          "rn": 221,
+          "untpcType": "열량단가",
+          "day": "202208"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 160191.281,
+          "rn": 222,
+          "untpcType": "열량단가",
+          "day": "202208"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2557.0,
+          "rn": 223,
+          "untpcType": "열량단가",
+          "day": "202208"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 44888.75,
+          "rn": 224,
+          "untpcType": "열량단가",
+          "day": "202208"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 101968.031,
+          "rn": 225,
+          "untpcType": "열량단가",
+          "day": "202208"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 50152.41,
+          "rn": 226,
+          "untpcType": "열량단가",
+          "day": "202207"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 154089.203,
+          "rn": 227,
+          "untpcType": "열량단가",
+          "day": "202207"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2558.73,
+          "rn": 228,
+          "untpcType": "열량단가",
+          "day": "202207"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 42957.398,
+          "rn": 229,
+          "untpcType": "열량단가",
+          "day": "202207"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 91732.289,
+          "rn": 230,
+          "untpcType": "열량단가",
+          "day": "202207"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 48472.828,
+          "rn": 231,
+          "untpcType": "열량단가",
+          "day": "202206"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 149111.297,
+          "rn": 232,
+          "untpcType": "열량단가",
+          "day": "202206"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2562.53,
+          "rn": 233,
+          "untpcType": "열량단가",
+          "day": "202206"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 42037.75,
+          "rn": 234,
+          "untpcType": "열량단가",
+          "day": "202206"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 89385.258,
+          "rn": 235,
+          "untpcType": "열량단가",
+          "day": "202206"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 47606.77,
+          "rn": 236,
+          "untpcType": "열량단가",
+          "day": "202205"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 140081.797,
+          "rn": 237,
+          "untpcType": "열량단가",
+          "day": "202205"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2564.04,
+          "rn": 238,
+          "untpcType": "열량단가",
+          "day": "202205"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 61076.5,
+          "rn": 239,
+          "untpcType": "열량단가",
+          "day": "202205"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 93633.242,
+          "rn": 240,
+          "untpcType": "열량단가",
+          "day": "202205"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 44267.461,
+          "rn": 241,
+          "untpcType": "열량단가",
+          "day": "202204"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 133950.328,
+          "rn": 242,
+          "untpcType": "열량단가",
+          "day": "202204"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2563.27,
+          "rn": 243,
+          "untpcType": "열량단가",
+          "day": "202204"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 32548.5,
+          "rn": 244,
+          "untpcType": "열량단가",
+          "day": "202204"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 114224.0,
+          "rn": 245,
+          "untpcType": "열량단가",
+          "day": "202204"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 40727.27,
+          "rn": 246,
+          "untpcType": "열량단가",
+          "day": "202203"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 130738.109,
+          "rn": 247,
+          "untpcType": "열량단가",
+          "day": "202203"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2564.82,
+          "rn": 248,
+          "untpcType": "열량단가",
+          "day": "202203"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 31204.5,
+          "rn": 249,
+          "untpcType": "열량단가",
+          "day": "202203"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 104505.852,
+          "rn": 250,
+          "untpcType": "열량단가",
+          "day": "202203"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 39107.078,
+          "rn": 251,
+          "untpcType": "열량단가",
+          "day": "202202"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 126425.07,
+          "rn": 252,
+          "untpcType": "열량단가",
+          "day": "202202"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2564.58,
+          "rn": 253,
+          "untpcType": "열량단가",
+          "day": "202202"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 34434.5,
+          "rn": 254,
+          "untpcType": "열량단가",
+          "day": "202202"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 115453.93,
+          "rn": 255,
+          "untpcType": "열량단가",
+          "day": "202202"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 35748.051,
+          "rn": 256,
+          "untpcType": "열량단가",
+          "day": "202201"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 99472.57,
+          "rn": 257,
+          "untpcType": "열량단가",
+          "day": "202201"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2564.75,
+          "rn": 258,
+          "untpcType": "열량단가",
+          "day": "202201"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 33991.0,
+          "rn": 259,
+          "untpcType": "열량단가",
+          "day": "202201"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 89717.422,
+          "rn": 260,
+          "untpcType": "열량단가",
+          "day": "202201"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 32852.809,
+          "rn": 261,
+          "untpcType": "열량단가",
+          "day": "202112"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 95532.109,
+          "rn": 262,
+          "untpcType": "열량단가",
+          "day": "202112"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2563.75,
+          "rn": 263,
+          "untpcType": "열량단가",
+          "day": "202112"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 22345.0,
+          "rn": 264,
+          "untpcType": "열량단가",
+          "day": "202112"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 82616.211,
+          "rn": 265,
+          "untpcType": "열량단가",
+          "day": "202112"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유연탄",
+          "untpc": 29879.0,
+          "rn": 266,
+          "untpcType": "열량단가",
+          "day": "202111"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "유류",
+          "untpc": 93417.969,
+          "rn": 267,
+          "untpcType": "열량단가",
+          "day": "202111"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "원자력",
+          "untpc": 2552.27,
+          "rn": 268,
+          "untpcType": "열량단가",
+          "day": "202111"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "무연탄",
+          "untpc": 27861.0,
+          "rn": 269,
+          "untpcType": "열량단가",
+          "day": "202111"
+        },
+        {
+          "unit": "원/GCAL",
+          "fuelType": "LNG",
+          "untpc": 76610.891,
+          "rn": 270,
+          "untpcType": "열량단가",
+          "day": "202111"
+        }
+      ]
+    }
+  }
+}

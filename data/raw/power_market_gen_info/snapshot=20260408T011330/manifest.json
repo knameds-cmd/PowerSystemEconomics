@@ -1,0 +1,12 @@
+{
+  "source": "power_market_gen_info",
+  "base_url": "https://apis.data.go.kr/B552115/PowerMarketGenInfo/getPowerMarketGenInfo",
+  "downloaded_at": "20260408T011330",
+  "page_size": 10000,
+  "page_count": 2,
+  "total_count": 15122,
+  "pages": [
+    "page-0001.json",
+    "page-0002.json"
+  ]
+}
