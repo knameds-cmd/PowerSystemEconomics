@@ -41,6 +41,7 @@ This document turns the approval screenshots, provider guide documents, and the 
 - Format: JSON + XML
 - Base API: `https://api.odcloud.kr/api`
 - Swagger reference: `https://infuser.odcloud.kr/oas/docs?namespace=15065269/v1`
+- Current latest path verified from Swagger: `/15065269/v1/uddi:57e66d86-ea1d-4efb-9eb3-a6d575336841` (`20241231`)
 - Screenshot note: approval active from `2026-04-07`
 - Expected use in this project:
   - solar and wind hourly availability

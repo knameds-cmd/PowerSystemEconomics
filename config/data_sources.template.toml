@@ -21,11 +21,13 @@ provider = "odcloud"
 dataset_name = "한국전력거래소_지역별 시간별 태양광 및 풍력 발전량"
 base_url = "https://api.odcloud.kr/api"
 swagger_url = "https://infuser.odcloud.kr/oas/docs?namespace=15065269/v1"
+latest_path = "/15065269/v1/uddi:57e66d86-ea1d-4efb-9eb3-a6d575336841"
+latest_version = "20241231"
 format = ["json", "xml"]
 required = true
 cadence = "hourly"
 target_path = "data/raw/renewables"
-notes = "Use the Swagger page to confirm the exact generated path and query parameters."
+notes = "The current latest path was verified from the official Swagger document. Refresh it when a newer dataset version appears."
 
 [sources.power_market_gen_info]
 provider = "data.go.kr"
