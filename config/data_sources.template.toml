@@ -1,0 +1,69 @@
+# Template for future Julia loaders and download scripts.
+# Fill secrets through environment variables, not in this file.
+
+[auth]
+data_go_kr_service_key_env = "DATA_GO_KR_SERVICE_KEY"
+odcloud_service_key_env = "ODCLOUD_SERVICE_KEY"
+
+[sources.smp_forecast_demand]
+provider = "data.go.kr"
+dataset_name = "한국전력거래소_계통한계가격 및 수요예측(하루전 발전계획용)"
+base_url = "https://apis.data.go.kr/B552115/SmpWithForecastDemand"
+operation = "getSmpWithForecastDemand"
+format = ["json", "xml"]
+required = true
+cadence = "hourly"
+target_path = "data/raw/smp_forecast_demand"
+notes = "Baseline validation target for mainland SMP and load."
+
+[sources.regional_renewables]
+provider = "odcloud"
+dataset_name = "한국전력거래소_지역별 시간별 태양광 및 풍력 발전량"
+base_url = "https://api.odcloud.kr/api"
+swagger_url = "https://infuser.odcloud.kr/oas/docs?namespace=15065269/v1"
+format = ["json", "xml"]
+required = true
+cadence = "hourly"
+target_path = "data/raw/renewables"
+notes = "Use the Swagger page to confirm the exact generated path and query parameters."
+
+[sources.power_market_gen_info]
+provider = "data.go.kr"
+dataset_name = "한국전력거래소_전력시장 발전설비 정보"
+base_url = "https://apis.data.go.kr/B552115/PowerMarketGenInfo"
+operation = "getPowerMarketGenInfo"
+format = ["json", "xml"]
+required = true
+cadence = "daily"
+target_path = "data/raw/power_market_gen_info"
+notes = "Generator registry for clustering and capacity mapping."
+
+[sources.fuel_cost]
+provider = "data.go.kr"
+dataset_name = "한국전력거래소_월간 연료비용 정보"
+base_url = "https://apis.data.go.kr/B552115/FuelCost1"
+operation = "getFuelCost1"
+format = ["json", "xml"]
+required = true
+cadence = "monthly"
+target_path = "data/raw/fuel_cost"
+notes = "Monthly fuel cost anchor for effective marginal cost calibration."
+
+[sources.smp_decision_by_fuel]
+provider = "data.go.kr"
+dataset_name = "한국전력거래소_연료원별 SMP 결정 횟수(일별)"
+base_url = "https://apis.data.go.kr/B552115/SmpDecByFuel2"
+operation = "getSmpDecByFuel2"
+format = ["json", "xml"]
+required = true
+cadence = "daily"
+target_path = "data/raw/smp_decision_by_fuel"
+notes = "Validation support for marginal-fuel direction checks."
+
+[sources.kpx_member_status]
+provider = "kpx_web"
+dataset_name = "KPX 회원사 현황"
+reference_type = "manual_web_reference"
+required = false
+target_path = "data/raw/reference"
+notes = "Use as descriptive market-structure context rather than model input."

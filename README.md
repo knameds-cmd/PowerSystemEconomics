@@ -29,3 +29,10 @@ Suggested next implementation files:
 - `src/calibrate.jl`
 - `src/scenarios.jl`
 - `src/run_all.jl`
+
+Current data-acquisition references:
+
+- `docs/data-spec/api_source_catalog.md`
+- `docs/data-spec/api_collection_plan.md`
+- `config/data_sources.template.toml`
+- `.env.example`

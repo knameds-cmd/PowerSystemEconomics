@@ -7,3 +7,9 @@ Thumbs.db
 # Julia caches
 *.ji
 
+# Local secrets
+.env
+.env.*
+!.env.example
+config/local/
+
