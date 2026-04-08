@@ -1,10 +1,10 @@
 name,startup_cost,min_up_time,pmax_unit
-Nuclear_base,0.0,72,1000
-Coal_lowcost,120000.0,8,500
-Coal_highcost,100000.0,6,500
-LNG_CC_low,47398.56,4,880
-LNG_CC_mid,52138.42,4,700
+Nuclear_base,0.0,8,1000
+Coal_lowcost,12089.17,6,1000
+Coal_highcost,12218.12,6,1000
+LNG_CC_low,41299.92,4,880
+LNG_CC_mid,44513.7,4,550
 CHP_mustrun,30000.0,6,200
-LNG_GT_peak,10000.0,1,150
+LNG_GT_peak,5924.82,4,110
 Oil_peak,15000.0,1,200
 Hydro_fixed,0.0,1,500

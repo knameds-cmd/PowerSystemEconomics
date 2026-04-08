@@ -1,161 +1,250 @@
 """
-gencost.csv 및 genthermal.csv 생성
-- KPG 193 .mat 파일에서 mpc.gencost / mpc.genthermal 추출
-- .mat 파일이 없는 경우: DATA_SPECIFICATION.md의 예시값(MATPOWER 참조)으로 기본 생성
-
-사용법:
-  python data_format_DATA_SPECIFICATION_gencost_genthermal.py [mat_file_path]
-
-mat_file_path 인자가 없으면 DATA_SPECIFICATION.md의 참조값으로 기본 파일 생성
+gencost.csv 및 genthermal.csv 생성 - KPG193_ver1_5.m 파싱
+- 122개 발전기를 9개 클러스터로 집계
+- gencost: 2차 비용함수 C(P) = a*P^2 + b*P + c → 클러스터별 가중평균
+- genthermal: startup_cost, min_up_time, pmax_unit
 """
+import re
+import numpy as np
 import pandas as pd
 import os
-import sys
 
+M_FILE = "C:/Users/kname/Desktop/data/KPG193_ver1_5.m"
 PROJECT_RAW = "project/data/raw"
 LOCAL_SAVE = "C:/Users/kname/Desktop/data"
 
 os.makedirs(PROJECT_RAW, exist_ok=True)
 
-# 9개 클러스터 정의 (DATA_SPECIFICATION.md 참조)
-CLUSTER_NAMES = [
+# ── 1. .m 파일 파싱 ──
+with open(M_FILE, "r") as f:
+    text = f.read()
+
+def parse_matrix(text, name):
+    """mpc.xxx = [...]; 행렬 파싱"""
+    pattern = rf"mpc\.{name}\s*=\s*\[(.*?)\];"
+    match = re.search(pattern, text, re.DOTALL)
+    if not match:
+        raise ValueError(f"mpc.{name} not found")
+
+    rows = []
+    fuels = []
+    for line in match.group(1).strip().split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+        # 연료 주석 추출
+        fuel_match = re.search(r"%\s*(\S+)", line)
+        fuel = fuel_match.group(1) if fuel_match else "unknown"
+        fuels.append(fuel)
+
+        # 숫자 추출 (% 이전)
+        data_part = line.split("%")[0].replace(";", "").strip()
+        vals = [float(x) for x in data_part.split()]
+        rows.append(vals)
+
+    return rows, fuels
+
+# mpc.gen: bus Pg Qg Qmax Qmin Vg mBase status Pmax Pmin ...
+gen_rows, gen_fuels = parse_matrix(text, "gen")
+# mpc.gencost: type startup shutdown n c2 c1 c0
+gencost_rows, gc_fuels = parse_matrix(text, "gencost")
+# mpc.genthermal: type UT DT inistate initpower ramp_up ramp_down startup_lim shutdown_lim startup1 startup2 startup3 ...
+genthermal_rows, gt_fuels = parse_matrix(text, "genthermal")
+
+n_gen = len(gen_rows)
+print(f"KPG193 발전기 수: {n_gen}")
+print(f"연료 분포: LNG={gen_fuels.count('LNG')}, Coal={gen_fuels.count('Coal')}, Nuclear={gen_fuels.count('Nuclear')}")
+
+# ── 2. 발전기별 데이터 추출 ──
+generators = []
+for i in range(n_gen):
+    g = gen_rows[i]
+    gc = gencost_rows[i]
+    gt = genthermal_rows[i]
+
+    pmax = g[8]   # Pmax (MW)
+    pmin = g[9]   # Pmin (MW)
+    fuel = gen_fuels[i]
+
+    # gencost: type=2 polynomial, n=3 → a=gc[4], b=gc[5], c=gc[6]
+    # MATPOWER 단위: 1000won(천원) = 1$
+    # DATA_SPEC 및 Julia 코드 컨벤션:
+    #   a: MATPOWER 원본값 그대로 (MC 기여분 소수)
+    #   b: MATPOWER × 1000 (원/MWh)
+    #   c: MATPOWER 원본값 그대로 (천원/h, 코드에서 직접 사용)
+    a_raw = gc[4]
+    b_raw = gc[5]
+    c_raw = gc[6]
+    startup_cost_raw = gc[1]  # 천원
+
+    # genthermal
+    ut = gt[1]   # min up time (h)
+    ramp_up = gt[5]  # MW/h
+
+    generators.append({
+        "fuel": fuel,
+        "pmax": pmax,
+        "pmin": pmin,
+        "a": a_raw,         # MATPOWER raw (DATA_SPEC 컨벤션)
+        "b": b_raw * 1000,  # 원/MWh (천원 → 원)
+        "c": c_raw,         # 천원/h (DATA_SPEC 컨벤션, 코드 일치)
+        "startup_cost": startup_cost_raw,  # 천원 (DATA_SPEC 단위와 일치)
+        "min_up_time": ut,
+        "pmax_unit": pmax,  # 개별 호기 정격용량
+        "ramp_up": ramp_up,
+    })
+
+df_all = pd.DataFrame(generators)
+print(f"\n발전기별 데이터 (처음 5개):")
+print(df_all.head())
+
+# ── 3. 9개 클러스터 매핑 ──
+# Nuclear (25기) → Nuclear_base
+# Coal (41기) → marginal_cost 기준 하위 50% = Coal_lowcost, 상위 50% = Coal_highcost
+# LNG (56기) → Pmax 기준: CC(대형, Pmax>=400) vs GT(소형, Pmax<400)
+#              CC 내에서 비용 기준 하위 50% = LNG_CC_low, 상위 50% = LNG_CC_mid
+#              GT = LNG_GT_peak
+
+def assign_cluster(row, coal_threshold, lng_cc_threshold):
+    fuel = row["fuel"]
+    mc = 2 * row["a"] * (row["pmax"] * 0.5) + row["b"]  # MC at 50% load
+
+    if fuel == "Nuclear":
+        return "Nuclear_base"
+    elif fuel == "Coal":
+        if mc <= coal_threshold:
+            return "Coal_lowcost"
+        else:
+            return "Coal_highcost"
+    elif fuel == "LNG":
+        if row["pmax"] >= 400:  # CC
+            if mc <= lng_cc_threshold:
+                return "LNG_CC_low"
+            else:
+                return "LNG_CC_mid"
+        else:
+            return "LNG_GT_peak"
+    return "unknown"
+
+# MC at 50% load 계산
+df_all["mc_50"] = 2 * df_all["a"] * (df_all["pmax"] * 0.5) + df_all["b"]
+
+# Coal 중위수
+coal_mask = df_all["fuel"] == "Coal"
+coal_median_mc = df_all[coal_mask]["mc_50"].median()
+print(f"\nCoal MC 중위수: {coal_median_mc:.0f} 원/MWh")
+
+# LNG CC 중위수 (Pmax >= 400)
+lng_cc_mask = (df_all["fuel"] == "LNG") & (df_all["pmax"] >= 400)
+lng_cc_median_mc = df_all[lng_cc_mask]["mc_50"].median()
+print(f"LNG CC MC 중위수: {lng_cc_median_mc:.0f} 원/MWh")
+
+df_all["cluster"] = df_all.apply(
+    lambda r: assign_cluster(r, coal_median_mc, lng_cc_median_mc), axis=1
+)
+
+print(f"\n클러스터별 발전기 수:")
+print(df_all["cluster"].value_counts().sort_index())
+
+# ── 4. 클러스터별 가중평균 gencost 계산 ──
+# C_cluster(P) = a_avg * P^2 + b_avg * P + c_sum
+# a_avg: Pmax 가중평균, b_avg: Pmax 가중평균, c_sum: 합산
+
+gencost_results = []
+genthermal_results = []
+
+# CHP_mustrun, Oil_peak, Hydro_fixed는 KPG193에 없음 → DATA_SPEC 기본값 유지
+CLUSTER_ORDER = [
     "Nuclear_base", "Coal_lowcost", "Coal_highcost",
     "LNG_CC_low", "LNG_CC_mid", "CHP_mustrun",
     "LNG_GT_peak", "Oil_peak", "Hydro_fixed"
 ]
 
-def create_from_mat(mat_path):
-    """MATPOWER .mat 파일에서 gencost/genthermal 추출"""
-    try:
-        from scipy.io import loadmat
-    except ImportError:
-        print("scipy 설치 필요: pip install scipy")
-        return False
+for cluster_name in CLUSTER_ORDER:
+    sub = df_all[df_all["cluster"] == cluster_name]
 
-    data = loadmat(mat_path, squeeze_me=True)
+    if len(sub) == 0:
+        # KPG193에 없는 클러스터 → DATA_SPEC 기본값
+        defaults_gc = {
+            "CHP_mustrun":  {"a": 0.0035,  "b": 80000,  "c": 40000},
+            "Oil_peak":     {"a": 0.008,   "b": 210000, "c": 5000},
+            "Hydro_fixed":  {"a": 0.0,     "b": 60000,  "c": 0},
+        }
+        defaults_gt = {
+            "CHP_mustrun":  {"startup_cost": 30000,  "min_up_time": 6, "pmax_unit": 200},
+            "Oil_peak":     {"startup_cost": 15000,  "min_up_time": 1, "pmax_unit": 200},
+            "Hydro_fixed":  {"startup_cost": 0,      "min_up_time": 1, "pmax_unit": 500},
+        }
+        gc = defaults_gc[cluster_name]
+        gencost_results.append({"name": cluster_name, **gc})
+        gt = defaults_gt[cluster_name]
+        genthermal_results.append({"name": cluster_name, **gt})
+        print(f"\n{cluster_name}: DATA_SPEC 기본값 사용 (KPG193에 없음)")
+        continue
 
-    # mpc 구조체 탐색
-    mpc = None
-    for key in data:
-        if not key.startswith("_"):
-            val = data[key]
-            if hasattr(val, "dtype") and val.dtype.names:
-                if "gencost" in val.dtype.names:
-                    mpc = val
-                    break
+    # Pmax 가중평균
+    weights = sub["pmax"].values
+    total_pmax = weights.sum()
 
-    if mpc is None:
-        print(f"WARNING: {mat_path}에서 mpc 구조체를 찾을 수 없습니다.")
-        return False
+    a_avg = np.average(sub["a"].values, weights=weights)
+    b_avg = np.average(sub["b"].values, weights=weights)
+    c_avg = np.average(sub["c"].values, weights=weights)  # 대표 호기 무부하비 (가중평균)
 
-    # gencost 추출
-    gencost_raw = mpc["gencost"].item()
-    print(f"gencost shape: {gencost_raw.shape}")
+    gencost_results.append({
+        "name": cluster_name,
+        "a": round(a_avg, 6),
+        "b": round(b_avg, 2),
+        "c": round(c_avg, 2),
+    })
 
-    # MATPOWER gencost format: [type, startup, shutdown, n, c_{n-1}, ..., c_0]
-    # type=2 (polynomial), n=3 → a, b, c
-    gencost_records = []
-    for i, row in enumerate(gencost_raw):
-        if len(row) >= 7 and row[0] == 2 and row[3] == 3:
-            a, b, c = row[4], row[5], row[6]
-        else:
-            a, b, c = 0.0, 0.0, 0.0
-        name = CLUSTER_NAMES[i] if i < len(CLUSTER_NAMES) else f"Gen_{i}"
-        gencost_records.append({"name": name, "a": a, "b": b, "c": c})
+    # genthermal: 대표 호기 기준
+    # startup_cost: Pmax 가중평균 (천원)
+    startup_avg = np.average(sub["startup_cost"].values, weights=weights)
+    # min_up_time: 최빈값 또는 중위수
+    ut_median = sub["min_up_time"].median()
+    # pmax_unit: 가장 대표적인(최빈) 호기 용량
+    pmax_mode = sub["pmax"].mode().iloc[0] if len(sub["pmax"].mode()) > 0 else sub["pmax"].median()
 
-    df_gencost = pd.DataFrame(gencost_records)
+    genthermal_results.append({
+        "name": cluster_name,
+        "startup_cost": round(startup_avg, 2),
+        "min_up_time": int(ut_median),
+        "pmax_unit": round(pmax_mode),
+    })
 
-    # genthermal 추출
-    if "genthermal" in mpc.dtype.names:
-        genthermal_raw = mpc["genthermal"].item()
-        print(f"genthermal shape: {genthermal_raw.shape}")
+    print(f"\n{cluster_name} ({len(sub)}기, 총 {total_pmax:.0f} MW):")
+    print(f"  gencost: a={a_avg:.6f}, b={b_avg:.2f}, c={c_avg:.0f}")
+    print(f"  genthermal: startup={startup_avg:.0f} 천원, UT={ut_median:.0f}h, pmax_unit={pmax_mode:.0f} MW")
 
-        genthermal_records = []
-        for i, row in enumerate(genthermal_raw):
-            # [type, UT, DT, inistate, initialpower, ramp_up, ramp_down,
-            #  startup_limit, shutdown_limit, startup1, startup2, startup3, ...]
-            startup_cost = row[9] if len(row) > 9 else 0.0  # startup1 (천원)
-            min_up_time = row[1] if len(row) > 1 else 1.0   # UT
-            name = CLUSTER_NAMES[i] if i < len(CLUSTER_NAMES) else f"Gen_{i}"
-            genthermal_records.append({
-                "name": name,
-                "startup_cost": startup_cost,
-                "min_up_time": min_up_time,
-                "pmax_unit": 500  # placeholder - 실제로는 발전기별 정격용량 필요
-            })
+# ── 5. DataFrame 생성 ──
+df_gencost = pd.DataFrame(gencost_results)[["name", "a", "b", "c"]]
+df_genthermal = pd.DataFrame(genthermal_results)[["name", "startup_cost", "min_up_time", "pmax_unit"]]
 
-        df_genthermal = pd.DataFrame(genthermal_records)
-    else:
-        print("WARNING: genthermal 데이터 없음")
-        df_genthermal = None
+print("\n" + "="*60)
+print("=== gencost.csv (KPG193 기반) ===")
+print(df_gencost.to_string(index=False))
 
-    return df_gencost, df_genthermal
+print("\n=== genthermal.csv (KPG193 기반) ===")
+print(df_genthermal.to_string(index=False))
 
+# 검증: MC 범위
+print("\n=== MC 검증 (P=Pmax/2 에서) ===")
+for _, row in df_gencost.iterrows():
+    name = row["name"]
+    gen_sub = df_all[df_all["cluster"] == name]
+    if len(gen_sub) > 0:
+        p_mid = gen_sub["pmax"].sum() / 2
+        mc = 2 * row["a"] * p_mid + row["b"]
+        print(f"  {name}: MC={mc:.0f} 원/MWh")
 
-def create_default():
-    """DATA_SPECIFICATION.md 참조값으로 기본 파일 생성"""
-    print("KPG 193 .mat 파일이 없습니다. DATA_SPECIFICATION.md 참조값으로 기본 파일을 생성합니다.")
+# ── 6. 저장 ──
+for df, fname in [(df_gencost, "gencost.csv"), (df_genthermal, "genthermal.csv")]:
+    out_proj = os.path.join(PROJECT_RAW, fname)
+    df.to_csv(out_proj, index=False)
+    print(f"\n저장: {out_proj}")
 
-    # gencost: MATPOWER 참조 + DATA_SPEC 예시
-    gencost_data = [
-        {"name": "Nuclear_base",  "a": 0.0005,  "b": 12000,  "c": 50000},
-        {"name": "Coal_lowcost",  "a": 0.002,   "b": 63000,  "c": 80000},
-        {"name": "Coal_highcost", "a": 0.003,   "b": 72000,  "c": 70000},
-        {"name": "LNG_CC_low",    "a": 0.004601,"b": 50243,  "c": 5213},
-        {"name": "LNG_CC_mid",    "a": 0.0055,  "b": 96500,  "c": 6000},
-        {"name": "CHP_mustrun",   "a": 0.0035,  "b": 80000,  "c": 40000},
-        {"name": "LNG_GT_peak",   "a": 0.01,    "b": 150000, "c": 3000},
-        {"name": "Oil_peak",      "a": 0.008,   "b": 210000, "c": 5000},
-        {"name": "Hydro_fixed",   "a": 0.0,     "b": 60000,  "c": 0},
-    ]
+    out_local = os.path.join(LOCAL_SAVE, fname)
+    df.to_csv(out_local, index=False)
+    print(f"저장: {out_local}")
 
-    # genthermal: MATPOWER 참조 + DATA_SPEC 예시
-    genthermal_data = [
-        {"name": "Nuclear_base",  "startup_cost": 0,         "min_up_time": 72, "pmax_unit": 1000},
-        {"name": "Coal_lowcost",  "startup_cost": 120000,    "min_up_time": 8,  "pmax_unit": 500},
-        {"name": "Coal_highcost", "startup_cost": 100000,    "min_up_time": 6,  "pmax_unit": 500},
-        {"name": "LNG_CC_low",    "startup_cost": 47398.56,  "min_up_time": 4,  "pmax_unit": 880},
-        {"name": "LNG_CC_mid",    "startup_cost": 52138.42,  "min_up_time": 4,  "pmax_unit": 700},
-        {"name": "CHP_mustrun",   "startup_cost": 30000,     "min_up_time": 6,  "pmax_unit": 200},
-        {"name": "LNG_GT_peak",   "startup_cost": 10000,     "min_up_time": 1,  "pmax_unit": 150},
-        {"name": "Oil_peak",      "startup_cost": 15000,     "min_up_time": 1,  "pmax_unit": 200},
-        {"name": "Hydro_fixed",   "startup_cost": 0,         "min_up_time": 1,  "pmax_unit": 500},
-    ]
-
-    return pd.DataFrame(gencost_data), pd.DataFrame(genthermal_data)
-
-
-# ── Main ──
-if __name__ == "__main__":
-    mat_path = sys.argv[1] if len(sys.argv) > 1 else None
-
-    if mat_path and os.path.exists(mat_path):
-        result = create_from_mat(mat_path)
-        if result is False:
-            df_gencost, df_genthermal = create_default()
-        else:
-            df_gencost, df_genthermal = result
-    else:
-        df_gencost, df_genthermal = create_default()
-
-    # 저장: gencost.csv
-    out1 = os.path.join(PROJECT_RAW, "gencost.csv")
-    df_gencost.to_csv(out1, index=False)
-    print(f"\n저장: {out1}")
-    df_gencost.to_csv(os.path.join(LOCAL_SAVE, "gencost.csv"), index=False)
-
-    print("\n=== gencost.csv ===")
-    print(df_gencost.to_string(index=False))
-
-    # 저장: genthermal.csv
-    if df_genthermal is not None:
-        out2 = os.path.join(PROJECT_RAW, "genthermal.csv")
-        df_genthermal.to_csv(out2, index=False)
-        print(f"\n저장: {out2}")
-        df_genthermal.to_csv(os.path.join(LOCAL_SAVE, "genthermal.csv"), index=False)
-
-        print("\n=== genthermal.csv ===")
-        print(df_genthermal.to_string(index=False))
-
-    print("\n⚠️  KPG 193 .mat 파일이 확보되면 이 스크립트를 재실행하세요:")
-    print("    python data_format_DATA_SPECIFICATION_gencost_genthermal.py <path_to_kpg193.mat>")
+print("\n=== KPG193 기반 gencost.csv / genthermal.csv 생성 완료 ===")
