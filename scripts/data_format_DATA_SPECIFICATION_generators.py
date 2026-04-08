@@ -1,10 +1,11 @@
 """
-generators.csv 생성 — KPG193 MATPOWER 데이터로 보완 (1차 수정)
-- KPG193 mpc.gen → pmin, pmax (클러스터별 합산)
-- KPG193 mpc.genthermal → ramp_up, ramp_down (클러스터별 합산)
-- KPG193 mpc.gencost → heat_rate 간접 추정 (MC@Pmin ≈ HR x FuelPrice + VOM)
-- EPSIS 발전기세부내역 → 실제 한국 설비용량 참고 (스케일 팩터)
-- 2024 실제 연료단가 → marginal_cost 산출
+generators.csv 생성 — 2차 수정
+- KPG193 mpc.gen → pmin, pmax (클러스터별 합산 x EPSIS 스케일)
+- KPG193 mpc.genthermal → ramp_up, ramp_down
+- VOM 제거: 한국 CBP 시장에서는 별도 VOM 항목이 존재하지 않음 (전력시장운영규칙)
+- CHP 제거: CHP 발전기는 LNG 등 다른 클러스터에 이미 포함되어 있음
+- heat_rate: DATA_SPEC 참조값 유지 (전력시장운영규칙 열소비계수 확보 시 갱신)
+- 8개 클러스터 체계
 """
 import re
 import numpy as np
@@ -43,13 +44,12 @@ genthermal_rows, _ = parse_matrix(text, "genthermal")
 n_gen = len(gen_rows)
 print(f"KPG193 발전기: {n_gen}기 (LNG:{gen_fuels.count('LNG')}, Coal:{gen_fuels.count('Coal')}, Nuclear:{gen_fuels.count('Nuclear')})")
 
-# ── 2. 발전기별 데이터 구조화 ──
+# ── 2. 발전기별 데이터 ──
 gens = []
 for i in range(n_gen):
     g = gen_rows[i]
     gc = gencost_rows[i]
     gt = genthermal_rows[i]
-
     gens.append({
         "fuel": gen_fuels[i],
         "pmax": g[8],
@@ -57,33 +57,25 @@ for i in range(n_gen):
         "ramp_up": gt[5],
         "ramp_down": gt[6],
         "a": gc[4],
-        "b": gc[5] * 1000,   # 천원/MWh → 원/MWh
-        "c": gc[6],
-        "startup_cost": gc[1],
-        "min_up_time": gt[1],
+        "b": gc[5] * 1000,
+        "mc_50": 2 * gc[4] * (g[8] * 0.5) + gc[5] * 1000,
     })
 
 df_all = pd.DataFrame(gens)
 
-# MC at 50% load
-df_all["mc_50"] = 2 * df_all["a"] * (df_all["pmax"] * 0.5) + df_all["b"]
-
-# ── 3. 클러스터 배정 (gencost 스크립트와 동일 기준) ──
-coal_mask = df_all["fuel"] == "Coal"
-coal_median = df_all[coal_mask]["mc_50"].median()
-
+# ── 3. 클러스터 배정 ──
+coal_median = df_all[df_all["fuel"] == "Coal"]["mc_50"].median()
 lng_cc_mask = (df_all["fuel"] == "LNG") & (df_all["pmax"] >= 400)
 lng_cc_median = df_all[lng_cc_mask]["mc_50"].median()
 
 def assign_cluster(row):
-    fuel = row["fuel"]
-    mc = row["mc_50"]
+    fuel, mc, pmax = row["fuel"], row["mc_50"], row["pmax"]
     if fuel == "Nuclear":
         return "Nuclear_base"
     elif fuel == "Coal":
         return "Coal_lowcost" if mc <= coal_median else "Coal_highcost"
     elif fuel == "LNG":
-        if row["pmax"] >= 400:
+        if pmax >= 400:
             return "LNG_CC_low" if mc <= lng_cc_median else "LNG_CC_mid"
         else:
             return "LNG_GT_peak"
@@ -91,234 +83,131 @@ def assign_cluster(row):
 
 df_all["cluster"] = df_all.apply(assign_cluster, axis=1)
 
-# ── 4. 클러스터별 합산/가중평균 ──
+# ── 4. 클러스터별 합산 ──
 cluster_stats = {}
 for name, sub in df_all.groupby("cluster"):
-    w = sub["pmax"].values
     cluster_stats[name] = {
         "n_units": len(sub),
         "pmax": sub["pmax"].sum(),
         "pmin": sub["pmin"].sum(),
         "ramp_up": sub["ramp_up"].sum(),
         "ramp_down": sub["ramp_down"].sum(),
-        "mc_50_wavg": np.average(sub["mc_50"].values, weights=w),
     }
 
-# ── 5. EPSIS 실제 설비용량으로 스케일링 ──
-# KPG193은 특정 시점의 모델 → 실제 2024 한국 설비와 차이 있음
-# EPSIS 중앙급전 실데이터를 기준으로 스케일 팩터 적용
-
+# ── 5. EPSIS 실제 설비용량 스케일 팩터 ──
 df_epsis = pd.read_csv(
-    os.path.join(DATA_DIR, "HOME_발전설비_발전기세부내역.csv"),
-    encoding="cp949"
+    os.path.join(DATA_DIR, "HOME_발전설비_발전기세부내역.csv"), encoding="cp949"
 )
 cols = df_epsis.columns
-fuel_col = cols[7]
-cap_col = cols[4]
-dispatch_col = cols[16]
-
-df_central = df_epsis[df_epsis[dispatch_col].astype(str).str.strip() == "중앙"].copy()
-df_central["cap_MW"] = pd.to_numeric(df_central[cap_col], errors="coerce") / 1000
-
-# EPSIS 연료별 총 용량
+df_central = df_epsis[df_epsis[cols[16]].astype(str).str.strip() == "중앙"].copy()
+df_central["cap_MW"] = pd.to_numeric(df_central[cols[4]], errors="coerce") / 1000
 epsis_cap = {}
-for fname, cap in df_central.groupby(fuel_col)["cap_MW"].sum().items():
+for fname, cap in df_central.groupby(cols[7])["cap_MW"].sum().items():
     epsis_cap[str(fname).strip()] = cap
 
-# EPSIS → 클러스터 매핑
-epsis_nuclear = 0
-epsis_lng = 0
-epsis_coal = 0
+epsis_nuclear, epsis_lng, epsis_coal = 0, 0, 0
 for fname, cap in epsis_cap.items():
     if fname.endswith("U") and cap > 10000:
         epsis_nuclear += cap
     elif fname == "LNG":
         epsis_lng += cap
     elif fname.endswith("U") and cap < 10000:
-        epsis_lng += cap  # 천연U → LNG 소규모
+        epsis_lng += cap
     elif "탄" in fname:
         epsis_coal += cap
 
-print(f"\nEPSIS 실제 용량: Nuclear={epsis_nuclear:.0f}, Coal={epsis_coal:.0f}, LNG={epsis_lng:.0f} MW")
-
-# KPG193 합산
-kpg_nuclear = cluster_stats.get("Nuclear_base", {}).get("pmax", 0)
+kpg_nuclear = cluster_stats.get("Nuclear_base", {}).get("pmax", 1)
 kpg_coal = sum(cluster_stats.get(c, {}).get("pmax", 0) for c in ["Coal_lowcost", "Coal_highcost"])
 kpg_lng = sum(cluster_stats.get(c, {}).get("pmax", 0) for c in ["LNG_CC_low", "LNG_CC_mid", "LNG_GT_peak"])
 
-print(f"KPG193 합산:    Nuclear={kpg_nuclear:.0f}, Coal={kpg_coal:.0f}, LNG={kpg_lng:.0f} MW")
-
-# 스케일 팩터
 scale = {
-    "nuclear": epsis_nuclear / kpg_nuclear if kpg_nuclear > 0 else 1,
-    "coal": epsis_coal / kpg_coal if kpg_coal > 0 else 1,
-    "lng": epsis_lng / kpg_lng if kpg_lng > 0 else 1,
+    "nuclear": epsis_nuclear / kpg_nuclear,
+    "coal": epsis_coal / kpg_coal,
+    "lng": epsis_lng / kpg_lng,
 }
 print(f"스케일 팩터: Nuclear={scale['nuclear']:.3f}, Coal={scale['coal']:.3f}, LNG={scale['lng']:.3f}")
 
-# ── 6. 2024 실제 연료단가 ──
+# ── 6. 2024 연료단가 ──
 df_fuel = pd.read_csv(os.path.join(PROJECT_RAW, "fuel_costs.csv"), encoding="utf-8-sig")
 avg_fuel = df_fuel.groupby("fuel")["fuel_cost"].mean()
 
-# ── 7. 최종 generators.csv 구성 ──
+# ── 7. 8개 클러스터 (CHP 제거) ──
+# VOM = 0 (한국 CBP 시장에서는 별도 VOM 항목 없음)
+# heat_rate: DATA_SPEC 참조값 (전력시장운영규칙 열소비계수 확보 시 갱신)
 CLUSTER_ORDER = [
     "Nuclear_base", "Coal_lowcost", "Coal_highcost",
-    "LNG_CC_low", "LNG_CC_mid", "CHP_mustrun",
+    "LNG_CC_low", "LNG_CC_mid",
     "LNG_GT_peak", "Oil_peak", "Hydro_fixed"
 ]
-
 FUEL_MAP = {
     "Nuclear_base": "nuclear", "Coal_lowcost": "coal", "Coal_highcost": "coal",
-    "LNG_CC_low": "lng", "LNG_CC_mid": "lng", "CHP_mustrun": "chp",
+    "LNG_CC_low": "lng", "LNG_CC_mid": "lng",
     "LNG_GT_peak": "lng", "Oil_peak": "oil", "Hydro_fixed": "hydro",
 }
-
-# heat_rate: KPG193 비용함수는 다른 연료가격 체계로 보정되어 역산 부정확
-#           → DATA_SPEC 참조값(한국 발전기 표준) 유지
-# vom: 마찬가지로 DATA_SPEC 참조값 유지
 HR_REF = {
     "Nuclear_base": 2.4, "Coal_lowcost": 2.1, "Coal_highcost": 2.3,
-    "LNG_CC_low": 1.7, "LNG_CC_mid": 1.8, "CHP_mustrun": 2.0,
+    "LNG_CC_low": 1.7, "LNG_CC_mid": 1.8,
     "LNG_GT_peak": 2.5, "Oil_peak": 3.0, "Hydro_fixed": 0.0,
 }
-VOM_REF = {
-    "Nuclear_base": 500, "Coal_lowcost": 2000, "Coal_highcost": 2500,
-    "LNG_CC_low": 3000, "LNG_CC_mid": 3500, "CHP_mustrun": 2000,
-    "LNG_GT_peak": 5000, "Oil_peak": 8000, "Hydro_fixed": 500,
-}
-
-# KPG193의 pmin/pmax 비율 (물리적 특성은 스케일에 무관)
-kpg_pmin_ratio = {}
-for cname, stats in cluster_stats.items():
-    kpg_pmin_ratio[cname] = stats["pmin"] / stats["pmax"] if stats["pmax"] > 0 else 0
-
-# KPG193의 ramp/pmax 비율
-kpg_ramp_ratio = {}
-for cname, stats in cluster_stats.items():
-    kpg_ramp_ratio[cname] = {
-        "up": stats["ramp_up"] / stats["pmax"] if stats["pmax"] > 0 else 0,
-        "down": stats["ramp_down"] / stats["pmax"] if stats["pmax"] > 0 else 0,
-    }
 
 clusters = []
 for cname in CLUSTER_ORDER:
     fuel = FUEL_MAP[cname]
-    vom = VOM_REF[cname]
+    hr = HR_REF[cname]
+    fuel_price = avg_fuel.get(fuel, 0)
+    # marginal_cost = HR x FuelPrice (VOM 없음)
+    mc = round(hr * fuel_price)
 
     if cname in cluster_stats:
-        stats = cluster_stats[cname]
         s = scale.get(fuel, 1.0)
-
-        # Pmax: EPSIS 스케일링
+        stats = cluster_stats[cname]
         pmax = round(stats["pmax"] * s)
-        # Pmin: KPG193 비율 유지 x 스케일링
         pmin = round(stats["pmin"] * s)
-        # Ramp: KPG193 비율 유지 x 스케일링
         ramp_up = round(stats["ramp_up"] * s)
         ramp_down = round(stats["ramp_down"] * s)
-
-        # Heat rate: DATA_SPEC 참조값 사용 (KPG193 역산은 부정확)
-        hr_est = HR_REF.get(cname, 2.0)
-
-        # must_run: Nuclear과 CHP
-        must_run = "true" if cname in ["Nuclear_base", "CHP_mustrun"] else "false"
-
-        # marginal_cost: 실제 연료단가 기반
-        fuel_price = avg_fuel.get(fuel, 50000)
-        mc = round(hr_est * fuel_price + vom)
-
+        must_run = "true" if cname == "Nuclear_base" else "false"
+    elif cname == "Oil_peak":
+        oil_cap = sum(c for fn, c in epsis_cap.items()
+                      if fn in ["LSWR", "LPG*"] or ("유" in fn and "탄" not in fn))
+        pmax = round(oil_cap) if oil_cap > 0 else 700
+        pmin, ramp_up, ramp_down = 0, pmax, pmax
+        must_run = "false"
+    elif cname == "Hydro_fixed":
+        hydro_cap = sum(c for fn, c in epsis_cap.items() if "수" in fn)
+        pmax = round(hydro_cap) if hydro_cap > 0 else 6282
+        pmin, ramp_up, ramp_down = 0, pmax, pmax
+        must_run = "false"
     else:
-        # KPG193에 없는 클러스터
-        if cname == "CHP_mustrun":
-            pmax, pmin = 6000, 4000
-            ramp_up, ramp_down = 1000, 1000
-            hr_est = 2.0
-            must_run = "true"
-        elif cname == "Oil_peak":
-            # EPSIS 유류
-            oil_cap = 0
-            for fname, cap in epsis_cap.items():
-                if fname in ["LSWR", "LPG*"] or "유" in fname:
-                    if "탄" not in fname:
-                        oil_cap += cap
-            pmax = round(oil_cap) if oil_cap > 0 else 700
-            pmin = 0
-            ramp_up = ramp_down = pmax
-            hr_est = 3.0
-            must_run = "false"
-        elif cname == "Hydro_fixed":
-            # EPSIS 수력+양수
-            hydro_cap = 0
-            for fname, cap in epsis_cap.items():
-                if "수" in fname:
-                    hydro_cap += cap
-            pmax = round(hydro_cap) if hydro_cap > 0 else 6282
-            pmin = 0
-            ramp_up = ramp_down = pmax
-            hr_est = 0.0
-            must_run = "false"
-        else:
-            pmax, pmin = 0, 0
-            ramp_up = ramp_down = 0
-            hr_est = 0.0
-            must_run = "false"
-
-        hr_est = HR_REF.get(cname, 2.0)
-        fuel_price = avg_fuel.get(fuel, 0)
-        mc = round(hr_est * fuel_price + vom)
+        pmax = pmin = ramp_up = ramp_down = 0
+        must_run = "false"
 
     clusters.append({
-        "name": cname,
-        "fuel": fuel,
-        "pmin": pmin,
-        "pmax": pmax,
-        "ramp_up": ramp_up,
-        "ramp_down": ramp_down,
-        "heat_rate": hr_est,
-        "vom": vom,
+        "name": cname, "fuel": fuel,
+        "pmin": pmin, "pmax": pmax,
+        "ramp_up": ramp_up, "ramp_down": ramp_down,
+        "heat_rate": hr,
+        "vom": 0,  # 한국 CBP 시장: VOM 별도 항목 없음
         "must_run": must_run,
         "marginal_cost": mc,
     })
 
 df_out = pd.DataFrame(clusters)
 
-# ── 8. 출력 및 검증 ──
+# ── 8. 출력 ──
 print("\n" + "=" * 80)
-print("=== generators.csv (KPG193 보완, 1차 수정) ===")
+print("=== generators.csv (2차 수정: VOM 제거, CHP 제거) ===")
 print(df_out.to_string(index=False))
 
 total_pmax = df_out["pmax"].sum()
-total_pmin = df_out["pmin"].sum()
-print(f"\n총 Pmax: {total_pmax:,} MW")
-print(f"총 Pmin: {total_pmin:,} MW")
-print(f"2024 피크수요: ~97,115 MW → 예비율: {(total_pmax / 97115 - 1) * 100:.1f}%")
+print(f"\n총 Pmax: {total_pmax:,} MW (8개 클러스터)")
+print(f"2024 피크수요: ~97,115 MW -> 예비율: {(total_pmax / 97115 - 1) * 100:.1f}%")
 
-# KPG193 원본 비율 vs 스케일 후 비율 비교
-print("\n=== Pmin/Pmax 비율 비교 (KPG193 원본 → 스케일 후) ===")
-for cname in CLUSTER_ORDER:
-    if cname in cluster_stats:
-        orig = kpg_pmin_ratio[cname]
-        row = df_out[df_out["name"] == cname].iloc[0]
-        actual = row["pmin"] / row["pmax"] if row["pmax"] > 0 else 0
-        print(f"  {cname}: KPG193={orig:.2%} → 적용={actual:.2%}")
-
-print("\n=== Ramp/Pmax 비율 (KPG193 기반) ===")
-for cname in CLUSTER_ORDER:
-    if cname in kpg_ramp_ratio:
-        r = kpg_ramp_ratio[cname]
-        print(f"  {cname}: ramp_up/Pmax={r['up']:.2%}, ramp_down/Pmax={r['down']:.2%}")
-
-print("\n=== Heat Rate 추정 결과 ===")
-for _, row in df_out.iterrows():
-    print(f"  {row['name']}: HR={row['heat_rate']:.2f} Gcal/MWh, MC={row['marginal_cost']:,} 원/MWh")
+print("\n=== 변경사항 (1차 -> 2차) ===")
+print("  [삭제] CHP_mustrun 클러스터 (CHP는 LNG 등에 이미 포함)")
+print("  [변경] vom: DATA_SPEC 참조값 -> 0 (한국 CBP 시장에서 별도 VOM 없음)")
+print("  [변경] marginal_cost: HR x FuelPrice + VOM -> HR x FuelPrice")
 
 # ── 9. 저장 ──
-out_project = os.path.join(PROJECT_RAW, "generators.csv")
-df_out.to_csv(out_project, index=False)
-print(f"\n저장: {out_project}")
-
-out_local = os.path.join(LOCAL_SAVE, "generators.csv")
-df_out.to_csv(out_local, index=False)
-print(f"저장: {out_local}")
-
-print("\n=== generators.csv 1차 수정 완료 ===")
+df_out.to_csv(os.path.join(PROJECT_RAW, "generators.csv"), index=False)
+df_out.to_csv(os.path.join(LOCAL_SAVE, "generators.csv"), index=False)
+print(f"\n저장 완료: generators.csv (8 clusters)")
