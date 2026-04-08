@@ -1,0 +1,10 @@
+name,a,b,c
+Nuclear_base,0.0005,12000,50000
+Coal_lowcost,0.002,63000,80000
+Coal_highcost,0.003,72000,70000
+LNG_CC_low,0.004601,50243,5213
+LNG_CC_mid,0.0055,96500,6000
+CHP_mustrun,0.0035,80000,40000
+LNG_GT_peak,0.01,150000,3000
+Oil_peak,0.008,210000,5000
+Hydro_fixed,0.0,60000,0
